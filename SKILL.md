@@ -94,7 +94,7 @@ Validation report:
 
 Test profile:
 
-- `/models` returned 20 models (chat 13, embedding 3, rerank 2, analysis 1, ocr 1)
+- `/models` returned 21 models (chat 14, embedding 3, rerank 2, analysis 1, ocr 1)
 - Concurrency levels: `1,2,4,8`
 - Requests per level: `4`
 - Timeout per request: `15s`
@@ -119,9 +119,18 @@ High-throughput models validated to run at `c=8` under this profile:
 
 Models that should stay at `c=1` (or be avoided for high-QPS workloads):
 
-- Chat: `deepseek-r1:671b-64k`, `deepseek-r1:32b`, `deepseek-r1:671b`, `deepseek-r1:671b-0528`, `qwq:32b`, `S1-Base-Lite`, `S1-Base-Pro`, `S1-Base-Ultra`
+- Chat: `deepseek-r1:671b-64b`, `deepseek-r1:32b`, `deepseek-r1:671b`, `deepseek-r1:671b-0528`, `qwq:32b`, `qwen3.5`, `S1-Base-Lite`, `S1-Base-Pro`, `S1-Base-Ultra`
 - Embedding: `gte-qwen2:7b`, `qwen3-embedding:8b`
 - Rerank: `bge-reranker-v2-m3`
+
+### New Model Notes (2026-02-25)
+
+**`qwen3.5`** - Qwen3 series reasoning model:
+- Default thinking mode enabled (cannot be disabled)
+- Higher token consumption (~200-500+ tokens per request due to thinking output)
+- Response time ~5-6s for simple queries
+- Recommended for complex reasoning tasks only
+- Keep at `c=1` for stable operation
 
 ## Stable Operation Policy
 

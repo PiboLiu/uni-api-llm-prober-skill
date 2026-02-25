@@ -1,0 +1,862 @@
+{
+  "generated_at": "2026-02-25T01:51:26.956700+00:00",
+  "profile": "all-model robust quick profile",
+  "base_url": "https://uni-api.cstcloud.cn/v1",
+  "model_count": 20,
+  "tested_target_count": 20,
+  "concurrency_list": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "requests_per_level": 4,
+  "timeout_seconds": 15.0,
+  "levels": [
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 2343,
+      "p95_ms": 3693,
+      "max_ms": 3693,
+      "error_counts": {},
+      "kind": "embedding",
+      "model": "bge-large-zh:latest",
+      "concurrency": 1,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 2274,
+      "p95_ms": 4326,
+      "max_ms": 4326,
+      "error_counts": {},
+      "kind": "embedding",
+      "model": "bge-large-zh:latest",
+      "concurrency": 2,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 2286,
+      "p95_ms": 3781,
+      "max_ms": 3781,
+      "error_counts": {},
+      "kind": "embedding",
+      "model": "bge-large-zh:latest",
+      "concurrency": 4,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 2398,
+      "p95_ms": 2414,
+      "max_ms": 2414,
+      "error_counts": {},
+      "kind": "embedding",
+      "model": "bge-large-zh:latest",
+      "concurrency": 8,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 2386,
+      "p95_ms": 4391,
+      "max_ms": 4391,
+      "error_counts": {},
+      "kind": "chat",
+      "model": "deepseek-v3:671b",
+      "concurrency": 1,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 2618,
+      "p95_ms": 2870,
+      "max_ms": 2870,
+      "error_counts": {},
+      "kind": "chat",
+      "model": "deepseek-v3:671b",
+      "concurrency": 2,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 2637,
+      "p95_ms": 2698,
+      "max_ms": 2698,
+      "error_counts": {},
+      "kind": "chat",
+      "model": "deepseek-v3:671b",
+      "concurrency": 4,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 2828,
+      "p95_ms": 3117,
+      "max_ms": 3117,
+      "error_counts": {},
+      "kind": "chat",
+      "model": "deepseek-v3:671b",
+      "concurrency": 8,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 3,
+      "failed": 1,
+      "success_rate": 0.75,
+      "p50_ms": 14724,
+      "p95_ms": 16441,
+      "max_ms": 16441,
+      "error_counts": {
+        "timeout": 1
+      },
+      "kind": "chat",
+      "model": "deepseek-r1:671b-64k",
+      "concurrency": 1,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 1942,
+      "p95_ms": 2228,
+      "max_ms": 2228,
+      "error_counts": {},
+      "kind": "rerank",
+      "model": "bge-reranker-v2-m3",
+      "concurrency": 1,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 0,
+      "failed": 4,
+      "success_rate": 0.0,
+      "p50_ms": 1868,
+      "p95_ms": 1972,
+      "max_ms": 1972,
+      "error_counts": {
+        "HTTP 422 OOM": 4
+      },
+      "kind": "rerank",
+      "model": "bge-reranker-v2-m3",
+      "concurrency": 2,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 4680,
+      "p95_ms": 13159,
+      "max_ms": 13159,
+      "error_counts": {},
+      "kind": "chat",
+      "model": "qwen2.5-vl:72b",
+      "concurrency": 1,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 2557,
+      "p95_ms": 5689,
+      "max_ms": 5689,
+      "error_counts": {},
+      "kind": "chat",
+      "model": "qwen2.5-vl:72b",
+      "concurrency": 2,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 2617,
+      "p95_ms": 2620,
+      "max_ms": 2620,
+      "error_counts": {},
+      "kind": "chat",
+      "model": "qwen2.5-vl:72b",
+      "concurrency": 4,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 12948,
+      "p95_ms": 13261,
+      "max_ms": 13261,
+      "error_counts": {},
+      "kind": "chat",
+      "model": "qwen2.5-vl:72b",
+      "concurrency": 8,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 3,
+      "failed": 1,
+      "success_rate": 0.75,
+      "p50_ms": 5815,
+      "p95_ms": 16449,
+      "max_ms": 16449,
+      "error_counts": {
+        "timeout": 1
+      },
+      "kind": "chat",
+      "model": "qwq:32b",
+      "concurrency": 1,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 3,
+      "failed": 1,
+      "success_rate": 0.75,
+      "p50_ms": 14737,
+      "p95_ms": 16417,
+      "max_ms": 16417,
+      "error_counts": {
+        "timeout": 1
+      },
+      "kind": "chat",
+      "model": "deepseek-r1:32b",
+      "concurrency": 1,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 2343,
+      "p95_ms": 2460,
+      "max_ms": 2460,
+      "error_counts": {},
+      "kind": "chat",
+      "model": "spark-x1:70b",
+      "concurrency": 1,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 2259,
+      "p95_ms": 2291,
+      "max_ms": 2291,
+      "error_counts": {},
+      "kind": "chat",
+      "model": "spark-x1:70b",
+      "concurrency": 2,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 2838,
+      "p95_ms": 2840,
+      "max_ms": 2840,
+      "error_counts": {},
+      "kind": "chat",
+      "model": "spark-x1:70b",
+      "concurrency": 4,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 2462,
+      "p95_ms": 2507,
+      "max_ms": 2507,
+      "error_counts": {},
+      "kind": "chat",
+      "model": "spark-x1:70b",
+      "concurrency": 8,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 0,
+      "failed": 4,
+      "success_rate": 0.0,
+      "p50_ms": 1816,
+      "p95_ms": 1873,
+      "max_ms": 1873,
+      "error_counts": {
+        "HTTP 500": 4
+      },
+      "kind": "embedding",
+      "model": "gte-qwen2:7b",
+      "concurrency": 1,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 6450,
+      "p95_ms": 7442,
+      "max_ms": 7442,
+      "error_counts": {},
+      "kind": "chat",
+      "model": "qwen3:235b",
+      "concurrency": 1,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 7147,
+      "p95_ms": 13320,
+      "max_ms": 13320,
+      "error_counts": {},
+      "kind": "chat",
+      "model": "qwen3:235b",
+      "concurrency": 2,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 6001,
+      "p95_ms": 6438,
+      "max_ms": 6438,
+      "error_counts": {},
+      "kind": "chat",
+      "model": "qwen3:235b",
+      "concurrency": 4,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 5548,
+      "p95_ms": 6758,
+      "max_ms": 6758,
+      "error_counts": {},
+      "kind": "chat",
+      "model": "qwen3:235b",
+      "concurrency": 8,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 3,
+      "failed": 1,
+      "success_rate": 0.75,
+      "p50_ms": 12629,
+      "p95_ms": 16400,
+      "max_ms": 16400,
+      "error_counts": {
+        "timeout": 1
+      },
+      "kind": "chat",
+      "model": "deepseek-r1:671b",
+      "concurrency": 1,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 3,
+      "failed": 1,
+      "success_rate": 0.75,
+      "p50_ms": 15323,
+      "p95_ms": 16417,
+      "max_ms": 16417,
+      "error_counts": {
+        "timeout": 1
+      },
+      "kind": "chat",
+      "model": "deepseek-r1:671b-0528",
+      "concurrency": 1,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 0,
+      "failed": 4,
+      "success_rate": 0.0,
+      "p50_ms": 16409,
+      "p95_ms": 16455,
+      "max_ms": 16455,
+      "error_counts": {
+        "timeout": 4
+      },
+      "kind": "embedding",
+      "model": "qwen3-embedding:8b",
+      "concurrency": 1,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 1929,
+      "p95_ms": 2212,
+      "max_ms": 2212,
+      "error_counts": {},
+      "kind": "rerank",
+      "model": "qwen3-reranker:8b",
+      "concurrency": 1,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 1862,
+      "p95_ms": 1968,
+      "max_ms": 1968,
+      "error_counts": {},
+      "kind": "rerank",
+      "model": "qwen3-reranker:8b",
+      "concurrency": 2,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 1919,
+      "p95_ms": 2208,
+      "max_ms": 2208,
+      "error_counts": {},
+      "kind": "rerank",
+      "model": "qwen3-reranker:8b",
+      "concurrency": 4,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 2048,
+      "p95_ms": 2194,
+      "max_ms": 2194,
+      "error_counts": {},
+      "kind": "rerank",
+      "model": "qwen3-reranker:8b",
+      "concurrency": 8,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 0,
+      "failed": 4,
+      "success_rate": 0.0,
+      "p50_ms": 5131,
+      "p95_ms": 5287,
+      "max_ms": 5287,
+      "error_counts": {
+        "HTTP 422": 4
+      },
+      "kind": "chat",
+      "model": "S1-Base-Lite",
+      "concurrency": 1,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 3,
+      "failed": 1,
+      "success_rate": 0.75,
+      "p50_ms": 13532,
+      "p95_ms": 16392,
+      "max_ms": 16392,
+      "error_counts": {
+        "timeout": 1
+      },
+      "kind": "chat",
+      "model": "S1-Base-Pro",
+      "concurrency": 1,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 0,
+      "failed": 4,
+      "success_rate": 0.0,
+      "p50_ms": 16419,
+      "p95_ms": 16455,
+      "max_ms": 16455,
+      "error_counts": {
+        "timeout": 4
+      },
+      "kind": "chat",
+      "model": "S1-Base-Ultra",
+      "concurrency": 1,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 2051,
+      "p95_ms": 2075,
+      "max_ms": 2075,
+      "error_counts": {},
+      "kind": "analysis",
+      "model": "S1-CitationCalculate",
+      "concurrency": 1,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 1882,
+      "p95_ms": 2416,
+      "max_ms": 2416,
+      "error_counts": {},
+      "kind": "analysis",
+      "model": "S1-CitationCalculate",
+      "concurrency": 2,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 1965,
+      "p95_ms": 1989,
+      "max_ms": 1989,
+      "error_counts": {},
+      "kind": "analysis",
+      "model": "S1-CitationCalculate",
+      "concurrency": 4,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 1900,
+      "p95_ms": 2152,
+      "max_ms": 2152,
+      "error_counts": {},
+      "kind": "analysis",
+      "model": "S1-CitationCalculate",
+      "concurrency": 8,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 3949,
+      "p95_ms": 4158,
+      "max_ms": 4158,
+      "error_counts": {},
+      "kind": "chat",
+      "model": "gpt-oss-120b",
+      "concurrency": 1,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 3690,
+      "p95_ms": 4188,
+      "max_ms": 4188,
+      "error_counts": {},
+      "kind": "chat",
+      "model": "gpt-oss-120b",
+      "concurrency": 2,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 3843,
+      "p95_ms": 4726,
+      "max_ms": 4726,
+      "error_counts": {},
+      "kind": "chat",
+      "model": "gpt-oss-120b",
+      "concurrency": 4,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 3900,
+      "p95_ms": 4979,
+      "max_ms": 4979,
+      "error_counts": {},
+      "kind": "chat",
+      "model": "gpt-oss-120b",
+      "concurrency": 8,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 1817,
+      "p95_ms": 2139,
+      "max_ms": 2139,
+      "error_counts": {},
+      "kind": "ocr_pdf",
+      "model": "deepseek-ocr",
+      "concurrency": 1,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 1864,
+      "p95_ms": 2088,
+      "max_ms": 2088,
+      "error_counts": {},
+      "kind": "ocr_pdf",
+      "model": "deepseek-ocr",
+      "concurrency": 2,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 1939,
+      "p95_ms": 2070,
+      "max_ms": 2070,
+      "error_counts": {},
+      "kind": "ocr_pdf",
+      "model": "deepseek-ocr",
+      "concurrency": 4,
+      "requests": 4
+    },
+    {
+      "total": 4,
+      "success": 4,
+      "failed": 0,
+      "success_rate": 1.0,
+      "p50_ms": 2013,
+      "p95_ms": 2228,
+      "max_ms": 2228,
+      "error_counts": {},
+      "kind": "ocr_pdf",
+      "model": "deepseek-ocr",
+      "concurrency": 8,
+      "requests": 4
+    }
+  ],
+  "recommendations": {
+    "per_model": {
+      "analysis:S1-CitationCalculate": {
+        "kind": "analysis",
+        "model": "S1-CitationCalculate",
+        "recommended_concurrency": 8,
+        "reason": "success_rate>=99% and p95<=13500ms"
+      },
+      "chat:S1-Base-Lite": {
+        "kind": "chat",
+        "model": "S1-Base-Lite",
+        "recommended_concurrency": 1,
+        "reason": "no stable level reached strict threshold; fallback to 1"
+      },
+      "chat:S1-Base-Pro": {
+        "kind": "chat",
+        "model": "S1-Base-Pro",
+        "recommended_concurrency": 1,
+        "reason": "no stable level reached strict threshold; fallback to 1"
+      },
+      "chat:S1-Base-Ultra": {
+        "kind": "chat",
+        "model": "S1-Base-Ultra",
+        "recommended_concurrency": 1,
+        "reason": "no stable level reached strict threshold; fallback to 1"
+      },
+      "chat:deepseek-r1:32b": {
+        "kind": "chat",
+        "model": "deepseek-r1:32b",
+        "recommended_concurrency": 1,
+        "reason": "no stable level reached strict threshold; fallback to 1"
+      },
+      "chat:deepseek-r1:671b": {
+        "kind": "chat",
+        "model": "deepseek-r1:671b",
+        "recommended_concurrency": 1,
+        "reason": "no stable level reached strict threshold; fallback to 1"
+      },
+      "chat:deepseek-r1:671b-0528": {
+        "kind": "chat",
+        "model": "deepseek-r1:671b-0528",
+        "recommended_concurrency": 1,
+        "reason": "no stable level reached strict threshold; fallback to 1"
+      },
+      "chat:deepseek-r1:671b-64k": {
+        "kind": "chat",
+        "model": "deepseek-r1:671b-64k",
+        "recommended_concurrency": 1,
+        "reason": "no stable level reached strict threshold; fallback to 1"
+      },
+      "chat:deepseek-v3:671b": {
+        "kind": "chat",
+        "model": "deepseek-v3:671b",
+        "recommended_concurrency": 8,
+        "reason": "success_rate>=99% and p95<=13500ms"
+      },
+      "chat:gpt-oss-120b": {
+        "kind": "chat",
+        "model": "gpt-oss-120b",
+        "recommended_concurrency": 8,
+        "reason": "success_rate>=99% and p95<=13500ms"
+      },
+      "chat:qwen2.5-vl:72b": {
+        "kind": "chat",
+        "model": "qwen2.5-vl:72b",
+        "recommended_concurrency": 8,
+        "reason": "success_rate>=99% and p95<=13500ms"
+      },
+      "chat:qwen3:235b": {
+        "kind": "chat",
+        "model": "qwen3:235b",
+        "recommended_concurrency": 8,
+        "reason": "success_rate>=99% and p95<=13500ms"
+      },
+      "chat:qwq:32b": {
+        "kind": "chat",
+        "model": "qwq:32b",
+        "recommended_concurrency": 1,
+        "reason": "no stable level reached strict threshold; fallback to 1"
+      },
+      "chat:spark-x1:70b": {
+        "kind": "chat",
+        "model": "spark-x1:70b",
+        "recommended_concurrency": 8,
+        "reason": "success_rate>=99% and p95<=13500ms"
+      },
+      "embedding:bge-large-zh:latest": {
+        "kind": "embedding",
+        "model": "bge-large-zh:latest",
+        "recommended_concurrency": 8,
+        "reason": "success_rate>=99% and p95<=13500ms"
+      },
+      "embedding:gte-qwen2:7b": {
+        "kind": "embedding",
+        "model": "gte-qwen2:7b",
+        "recommended_concurrency": 1,
+        "reason": "no stable level reached strict threshold; fallback to 1"
+      },
+      "embedding:qwen3-embedding:8b": {
+        "kind": "embedding",
+        "model": "qwen3-embedding:8b",
+        "recommended_concurrency": 1,
+        "reason": "no stable level reached strict threshold; fallback to 1"
+      },
+      "ocr_pdf:deepseek-ocr": {
+        "kind": "ocr_pdf",
+        "model": "deepseek-ocr",
+        "recommended_concurrency": 8,
+        "reason": "success_rate>=99% and p95<=13500ms"
+      },
+      "rerank:bge-reranker-v2-m3": {
+        "kind": "rerank",
+        "model": "bge-reranker-v2-m3",
+        "recommended_concurrency": 1,
+        "reason": "success_rate>=99% and p95<=13500ms"
+      },
+      "rerank:qwen3-reranker:8b": {
+        "kind": "rerank",
+        "model": "qwen3-reranker:8b",
+        "recommended_concurrency": 8,
+        "reason": "success_rate>=99% and p95<=13500ms"
+      }
+    },
+    "safe_by_kind": {
+      "analysis": {
+        "safe_default_concurrency": 8,
+        "tested_model_count": 1,
+        "rule": "minimum recommended_concurrency across tested models of this kind"
+      },
+      "chat": {
+        "safe_default_concurrency": 1,
+        "tested_model_count": 13,
+        "rule": "minimum recommended_concurrency across tested models of this kind"
+      },
+      "embedding": {
+        "safe_default_concurrency": 1,
+        "tested_model_count": 3,
+        "rule": "minimum recommended_concurrency across tested models of this kind"
+      },
+      "ocr_pdf": {
+        "safe_default_concurrency": 8,
+        "tested_model_count": 1,
+        "rule": "minimum recommended_concurrency across tested models of this kind"
+      },
+      "rerank": {
+        "safe_default_concurrency": 1,
+        "tested_model_count": 2,
+        "rule": "minimum recommended_concurrency across tested models of this kind"
+      }
+    }
+  }
+}

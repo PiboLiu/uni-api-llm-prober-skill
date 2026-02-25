@@ -299,7 +299,7 @@ def main() -> int:
         print(
             "UNI_API_KEY/API_UNI_TOKEN is required. Example:\n"
             "  export API_UNI_TOKEN='your_key'\n"
-            "  python3 scripts/uni_api/stress_test_uni_api.py",
+            "  python3 scripts/stress_test_uni_api.py",
         )
         return 2
 

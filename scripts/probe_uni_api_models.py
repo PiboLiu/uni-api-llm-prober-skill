@@ -416,7 +416,7 @@ def main() -> int:
         print(
             "UNI_API_KEY/API_UNI_TOKEN is required. Example:\n"
             "  export API_UNI_TOKEN='your_key'\n"
-            "  python3 scripts/uni_api/probe_uni_api_models.py --max-models 5",
+            "  python3 scripts/probe_uni_api_models.py --max-models 5",
             file=sys.stderr,
         )
         return 2

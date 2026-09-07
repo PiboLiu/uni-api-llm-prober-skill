@@ -7,6 +7,7 @@ import argparse
 import json
 import math
 import os
+import sys
 import time
 import urllib.error
 import urllib.request
@@ -155,6 +156,8 @@ def _build_request(kind: str, model_id: str) -> tuple[str, str, dict[str, Any] |
 
 
 def _is_success(kind: str, payload: dict[str, Any]) -> bool:
+    if "error" in payload:
+        return False
     if kind == "chat":
         choices = payload.get("choices")
         return isinstance(choices, list) and len(choices) > 0
@@ -169,7 +172,7 @@ def _is_success(kind: str, payload: dict[str, Any]) -> bool:
         return payload.get("code") == 200
     if kind == "ocr_pdf":
         status = payload.get("status")
-        return isinstance(status, str) and bool(status.strip())
+        return isinstance(status, str) and status.strip().lower() == "healthy"
     return False
 
 
@@ -214,6 +217,8 @@ def run_level(
     requests: int,
     timeout: float,
 ) -> dict[str, Any]:
+    if concurrency <= 0 or requests < concurrency:
+        raise ValueError("requests must be at least concurrency, and concurrency must be positive")
     samples: list[dict[str, Any]] = []
     with ThreadPoolExecutor(max_workers=concurrency) as pool:
         futures = [
@@ -236,6 +241,7 @@ def run_level(
             "model": model_id,
             "concurrency": concurrency,
             "requests": requests,
+            "scope": "health_only" if kind == "ocr_pdf" else "inference",
         }
     )
     return summary
@@ -249,22 +255,30 @@ def build_recommendations(levels: list[dict[str, Any]], timeout: float) -> dict[
     rec: dict[str, Any] = {}
     p95_limit = int(timeout * 1000 * 0.9)
     for kind, rows in by_kind.items():
+        if kind == "ocr_pdf":
+            rec[kind] = {
+                "recommended_concurrency": None,
+                "reason": "health endpoint only; OCR inference capacity was not tested",
+            }
+            continue
         rows_sorted = sorted(rows, key=lambda x: int(x["concurrency"]))
         stable = [
             row
             for row in rows_sorted
-            if float(row["success_rate"]) >= 0.99 and int(row["p95_ms"]) <= p95_limit
+            if int(row.get("requests", 0)) >= int(row["concurrency"])
+            and int(row.get("total", 0)) >= int(row["concurrency"])
+            and float(row["success_rate"]) >= 0.99 and int(row["p95_ms"]) <= p95_limit
         ]
         if stable:
             chosen = stable[-1]
             rec[kind] = {
                 "recommended_concurrency": int(chosen["concurrency"]),
-                "reason": f"success_rate>=99% and p95<={p95_limit}ms",
+                "reason": f"candidate worker limit for this sample only: success_rate>=99% and p95<={p95_limit}ms; not a production capacity guarantee",
             }
         else:
             rec[kind] = {
-                "recommended_concurrency": 1,
-                "reason": "no stable level reached strict threshold; fallback to 1",
+                "recommended_concurrency": None,
+                "reason": "no adequately sampled level met the threshold; capacity unvalidated",
             }
     return rec
 
@@ -274,10 +288,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--base-url", default=os.getenv("UNI_API_BASE_URL", DEFAULT_BASE_URL))
     parser.add_argument(
         "--api-key",
-        default=os.getenv(
-            "UNI_API_KEY",
-            os.getenv("API_UNI_TOKEN", os.getenv("OPENAI_API_KEY", "")),
-        ),
+        default=os.getenv("UNI_API_KEY") or os.getenv("API_UNI_TOKEN", ""),
     )
     parser.add_argument("--kinds", default="chat,embedding,rerank,analysis,ocr_pdf")
     parser.add_argument("--concurrency-list", default="1,2,4,8")
@@ -305,7 +316,10 @@ def main() -> int:
 
     kinds = [k.strip() for k in args.kinds.split(",") if k.strip()]
     concurrencies = parse_positive_int_list(args.concurrency_list)
-    requests = max(1, int(args.requests_per_level))
+    requests = int(args.requests_per_level)
+    if requests < max(concurrencies):
+        print("--requests-per-level must be at least the largest concurrency level", file=sys.stderr)
+        return 2
     timeout = max(1.0, float(args.timeout))
     model_by_kind = {
         "chat": args.model_chat,

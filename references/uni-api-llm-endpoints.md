@@ -33,3 +33,8 @@
   - `model`
   - `query`
   - `documents`
+
+## Implemented OCR scope
+
+The scripts use `GET /deepseek-ocr/health` only. They do not implement the
+OCR inference endpoint listed above or submit image/PDF content.

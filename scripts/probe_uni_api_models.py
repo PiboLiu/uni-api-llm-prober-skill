@@ -16,7 +16,7 @@ from typing import Any
 
 
 DEFAULT_BASE_URL = "https://uni-api.cstcloud.cn/v1"
-SPECIAL_KINDS = {"web_search", "ai_search"}
+SPECIAL_KINDS = {"web_search", "ai_search", "ocr_pdf"}
 
 
 class HttpCallError(RuntimeError):
@@ -169,7 +169,7 @@ def validate_response(kind: str, payload: dict[str, Any]) -> bool:
         return code == 200 and isinstance(data, dict)
     if kind == "ocr_pdf":
         status = payload.get("status")
-        return isinstance(status, str) and bool(status.strip())
+        return isinstance(status, str) and status.strip().lower() == "healthy"
     if kind == "embedding":
         data = payload.get("data")
         return isinstance(data, list) and len(data) > 0
@@ -279,6 +279,7 @@ def probe_one_model(
                 "model": model_id,
                 "kind": kind,
                 "endpoint": req["endpoint"],
+                "scope": "health_only" if kind == "ocr_pdf" else "inference",
                 "status": "success",
                 "http_status": http_status,
                 "latency_ms": latency_ms,
@@ -363,11 +364,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--api-key",
-        default=os.getenv(
-            "UNI_API_KEY",
-            os.getenv("API_UNI_TOKEN", os.getenv("OPENAI_API_KEY", "")),
-        ),
-        help="API key. Reads UNI_API_KEY or API_UNI_TOKEN or OPENAI_API_KEY when omitted.",
+        default=os.getenv("UNI_API_KEY") or os.getenv("API_UNI_TOKEN", ""),
+        help="API key. Reads UNI_API_KEY or API_UNI_TOKEN when omitted.",
     )
     parser.add_argument(
         "--model",
@@ -395,7 +393,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--ocr-image-url",
         default=os.getenv("UNI_API_OCR_IMAGE_URL", ""),
-        help="Image URL for OCR probing when --include-special-endpoints is enabled.",
+        help="Deprecated compatibility option; ignored. OCR probes only the health endpoint.",
     )
     parser.add_argument(
         "--json-output",

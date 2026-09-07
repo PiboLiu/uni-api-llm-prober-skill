@@ -30,7 +30,6 @@ Optional:
 
 ```bash
 export UNI_API_BASE_URL="https://uni-api.cstcloud.cn/v1"
-export UNI_API_OCR_IMAGE_URL="https://example.com/sample-ocr.png"
 ```
 
 ## Commands
@@ -56,9 +55,7 @@ python3 scripts/probe_uni_api_models.py --model qwen-max --model rerank-v2-m3
 Include special endpoints (`web_search`, `ai_search`, `ocr`):
 
 ```bash
-python3 scripts/probe_uni_api_models.py \
-  --include-special-endpoints \
-  --ocr-image-url "https://example.com/sample-ocr.png"
+python3 scripts/probe_uni_api_models.py --include-special-endpoints
 ```
 
 Write report to file:
@@ -74,7 +71,7 @@ python3 scripts/stress_test_uni_api.py \
   --kinds chat \
   --model-chat deepseek-v3:671b \
   --concurrency-list 1,2,4,8 \
-  --requests-per-level 4 \
+  --requests-per-level 16 \
   --timeout 15 \
   --json-output /tmp/uni_api_stress_chat_deepseek_v3.json
 ```
@@ -83,62 +80,28 @@ python3 scripts/stress_test_uni_api.py \
 
 - `success`: API returned expected shape for this endpoint.
 - `failed`: request failed or response shape does not match expected fields.
-- `skipped`: model intentionally skipped (for example special endpoints not enabled, or OCR URL missing).
+- `skipped`: model intentionally skipped (for example special endpoints not enabled, OCR health checks not enabled).
 
-## Stable Run Profile (Validated 2026-02-25 UTC)
+## Evidence and concurrency limits
 
-Validation report:
+The archived 2026-02-25 report contains 20 models. It used only four requests
+per level, including the level labelled `8`; it cannot validate eight concurrent
+requests or production stability. Historical recommendations in that raw JSON
+are withdrawn. See `references/performance/stability-baseline-2026-02-25.md`.
+No archived measurement supports the later qwen3.5 claims; those claims are removed.
 
-- `references/performance/uni_api_full_model_stress_20260225.json`
-- `references/performance/stability-baseline-2026-02-25.md`
-
-Test profile:
-
-- `/models` returned 21 models (chat 14, embedding 3, rerank 2, analysis 1, ocr 1)
-- Concurrency levels: `1,2,4,8`
-- Requests per level: `4`
-- Timeout per request: `15s`
-- Early stop when `success_rate < 0.9`
-- Stability threshold for recommendation: `success_rate >= 99%` and `p95 <= 13.5s`
-
-Safe default concurrency by kind (production conservative mode):
-
-- `chat`: `1`
-- `embedding`: `1`
-- `rerank`: `1`
-- `analysis`: `8`
-- `ocr_pdf`: `8`
-
-High-throughput models validated to run at `c=8` under this profile:
-
-- Chat: `deepseek-v3:671b`, `qwen2.5-vl:72b`, `qwen3:235b`, `spark-x1:70b`, `gpt-oss-120b`
-- Embedding: `bge-large-zh:latest`
-- Rerank: `qwen3-reranker:8b`
-- Analysis: `S1-CitationCalculate`
-- OCR: `deepseek-ocr`
-
-Models that should stay at `c=1` (or be avoided for high-QPS workloads):
-
-- Chat: `deepseek-r1:671b-64b`, `deepseek-r1:32b`, `deepseek-r1:671b`, `deepseek-r1:671b-0528`, `qwq:32b`, `qwen3.5`, `S1-Base-Lite`, `S1-Base-Pro`, `S1-Base-Ultra`
-- Embedding: `gte-qwen2:7b`, `qwen3-embedding:8b`
-- Rerank: `bge-reranker-v2-m3`
-
-### New Model Notes (2026-02-25)
-
-**`qwen3.5`** - Qwen3 series reasoning model:
-- Default thinking mode enabled (cannot be disabled)
-- Higher token consumption (~200-500+ tokens per request due to thinking output)
-- Response time ~5-6s for simple queries
-- Recommended for complex reasoning tasks only
-- Keep at `c=1` for stable operation
-
-## Stable Operation Policy
-
-1. Default unknown/new models to `c=1`.
-2. Use high-throughput whitelist only after model-level stress test passes.
-3. Promote concurrency gradually: `1 -> 2 -> 4 -> 8`.
-4. Roll back one level immediately if timeout, 5xx, or OOM appears.
-5. Re-run stress baseline after model catalog changes (`/models`) or provider upgrades.
+- Set requests per level to at least the largest concurrency; insufficient batches
+  are rejected before requests are sent. Use larger samples for meaningful estimates.
+- `concurrency` is the configured worker limit, not measured server concurrency.
+- Recommendations are candidates for the sampled workload, not production guarantees.
+- No qualifying level yields `recommended_concurrency: null`, not a validated fallback.
+- OCR checks only `GET /deepseek-ocr/health`, requires `status: healthy`, and reports
+  `scope: health_only`. It does not submit images or measure OCR recognition capacity.
+  OCR inference concurrency is always unvalidated (`null`).
+- `--ocr-image-url` is retained as an ignored compatibility option.
+- Only `UNI_API_KEY`, `API_UNI_TOKEN`, or an explicit `--api-key` supplies credentials.
+  `OPENAI_API_KEY` is never read automatically. Use a key intended for the chosen base URL.
+- The stress script runs every configured level; it does not implement early stopping.
 
 ## Endpoint Map
 
